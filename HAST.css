@@ -1,3 +1,83 @@
+/* Base styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main content container */
+#main-content {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Section headings */
+h2 {
+  font-size: 2rem;
+  color: green;;
+  border-bottom: 2px solid yellow;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+  color: #444;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Paragraphs and lists */
+p {
+  margin-bottom: 1rem;
+}
+
+ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+ul li {
+  margin-bottom: 0.5rem;
+}
+
+/* Emphasis */
+strong {
+  color: #000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  #main-content {
+    padding: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+  }
+}
+
 /* Reset */
 * {
   margin: 0;
@@ -124,44 +204,71 @@ h1 {
 
 /* Main Content */
 #main-content {
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  z-index: 3;
+  text-align: center;
+  padding: 50px 20px;
+  height:fit-content;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 30px;
   padding: 20px;
-  max-width: 800px;
-  margin: auto;
-  font-family: 'Segoe UI', sans-serif;
 }
 
-#vision{
+.card{  
+  border-left: 5px solid green;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h3{
+  font-size: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card img{
+  width: 80px;
+  height: 80px;
+  margin-left: 20px; /* optional: adds space between text and image */
+  
+
+}
+
+/* code for Clinic.html */
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
   width: 100%;
-  height: fit-content;
- padding: 10px;
-  border-left: 5px solid  rgb(1, 176, 1);
-  margin: 10px;
-  background-color: rgb(231, 237, 232);
-
 }
 
-#Mission{
-    width:100%;
-  height: fit-content;
- padding: 10px;
-  border-left: 5px solid  rgb(1, 176, 1);
-  margin: 10px;
-  background-color: rgb(231, 237, 231);
-
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
 }
 
-#Core{
-    width: 100%;
-  height: fit-content;
- padding: 10px;
-  border-left: 5px solid  rgb(1, 176, 1);
-  margin: 10px;
-  background-color: rgb(231, 237, 232);
+#customers tr:nth-child(even){background-color: #f2f2f2;}
 
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
 }
+
+/* code for hospitals.html */
+
+
+
+
 
 /* ✅ Footer Styling */
 .footer {
@@ -228,34 +335,82 @@ h1 {
   }
 }
 
-#main-content {
-  
-}
-
-.newsletter-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* Base styling */
+body {
+  font-family: Arial, sans-serif;
   background-color: #f9f9f9;
-  border-left: 5px solid green;
-  padding: 15px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.newsletter-card:hover {
-  background-color: #e6f0ff;
-}
-
-.newsletter-card h3 {
   margin: 0;
-  font-size: 16px;
-  font-weight: 500;
+  padding: 0;
+}
+
+/* Main content container */
+#main-content {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  line-height: 1.6;
   color: #333;
 }
 
-.type-icon {
-  font-size: 20px;
-  color: #0078D7;
+/* Section headings */
+h2 {
+  font-size: 2rem;
+  color: green;
+  border-bottom: 2px solid yellowgreen;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+  color: #444;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Paragraphs and lists */
+p {
+  margin-bottom: 1rem;
+}
+
+ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+ul li {
+  margin-bottom: 0.5rem;
+}
+
+/* Emphasis */
+strong {
+  color: #000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  #main-content {
+    padding: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+  }
 }
