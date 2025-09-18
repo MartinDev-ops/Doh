@@ -148,116 +148,58 @@ h1 {
 }
 
 h3{
-  font-size: 30px;
+  font-size: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .card img{
-  width: 50px;
+  width: 80px;
   height: 80px;
   margin-left: 20px; /* optional: adds space between text and image */
   
 
 }
 
-/* code for Clinic.html */
-#customers {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+/* css for AFFPHF.html */
+/* Style for the table with id="table" */
+#table {
   border-collapse: collapse;
   width: 100%;
-}
-
-#customers td, #customers th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-#customers tr:nth-child(even){background-color: #f2f2f2;}
-
-#customers tr:hover {background-color: #ddd;}
-
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
-  color: white;
-}
-
-/* code for hospitals.html */
-#customers1 {
+  background-color: #fff;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-#customers1 td, #customers1 th {
+#table th, #table td {
   border: 1px solid #ddd;
-  padding: 8px;
-}
-
-#customers1 tr:nth-child(even){background-color: #f2f2f2;}
-
-#customers1 tr:hover {background-color: #ddd;}
-
-#customers1 th {
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding: 10px;
   text-align: left;
-  background-color: #4CAF50;
+}
+
+#table th {
+  background-color: #498e4b;
   color: white;
-}
-/* hospital.html 2 */
-#customers2 {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+  font-size: 18px;
 }
 
-#customers2 td, #customers2 th {
-  border: 1px solid #ddd;
-  padding: 8px;
+#table tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
-#customers2 tr:nth-child(even){background-color: #f2f2f2;}
-
-#customers2 tr:hover {background-color: #ddd;}
-
-#customers2 th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
-  color: white;
-}
-/* hospital.html 3 */
-#customers3 {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+#table tr:hover {
+  background-color: #e6ffe6;
 }
 
-#customers3 td, #customers3 th {
-  border: 1px solid #ddd;
-  padding: 8px;
+#table a {
+  color: #196020;
+  
 }
 
-#customers3 tr:nth-child(even){background-color: #f2f2f2;}
-
-#customers3 tr:hover {background-color: #ddd;}
-
-#customers3 th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
-  color: white;
+#table img {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
 }
-
-
-
-
-
 
 
 
