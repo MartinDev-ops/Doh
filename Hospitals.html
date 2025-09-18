@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="Health.css">
+     <script src="app.js"></script>
+</head>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  function setupDropdown(tableId, buttonId) {
+    const button = document.getElementById(buttonId);
+    const table = document.getElementById(tableId);
+    // Hide all rows except the first row
+    const rows = table.querySelectorAll("tr:not(:first-child)");
+    let visible = false;
+    rows.forEach(row => row.style.display = "none");
+    button.addEventListener("click", function() {
+      visible = !visible;
+      rows.forEach(row => row.style.display = visible ? "" : "none");
+      button.textContent = visible ? "Hide Hospitals" : "Show Hospitals";
+    });
+  }
+  setupDropdown("customers1", "toggleTable1");
+  setupDropdown("customers2", "toggleTable2");
+  setupDropdown("customers3", "toggleTable3");
+});
+</script>
+
+
+<body>
+    <div id="primary_header">
+    <img id ="logo" src="images/limpop-province.png"   >
+
+  </div>
+
+    <div id="secondary_header">
+       
+        <h1>Department of Health</h1>
+    </div>
+
+    <div id="nav">
+      <div id="navbar">
+        <a class="active" href="index.html">Home</a>
+        <a href="news.html">News</a> 
+        <a href="about_us.html">About us</a> 
+        <a href="#documents">Documents</a>
+        <a href="#jobs">Jobs</a>
+        <a href="services.html">Services</a>
+        <a href="HealthFacilities.html">Health Facilities</a> 
+        <a href="#tendors">Tenders</a>
+        <a href="#contact">Contact us</a> 
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+         <i class="fa fa-bars"></i></a>
+                                 
+      </div>                          
+  </div>
+
+  <div id="main-content">
+    
+    <div id="T">
+<button id="toggleTable1" style="margin-bottom:10px;">Show Hospitals</button>
+<table id="customers1" cellspacing="0" cellpadding="0" width="793"><tr>
+Capricorn District Office: 015 290 9000<br /></tr><tr><td width="237" valign="top">
+<p><strong>HOSPITALS</strong></p>
+</td>
+<td width="237" valign="top">
+<p><strong>TEL NUMBER</strong></p>
+</td>
+<td width="237" valign="top">
+<p><strong>LOCATION</strong></p>
+</td>
+</tr><tr><td width="256" valign="top">Seshego hospital</td>
+<td width="237" valign="top">
+<p>015 223 5141</p>
+</td>
+<td width="237" valign="top">
+<p>Seshego Zone 1</p>
+</td>
+</tr><tr><td width="256" valign="top">Helene Franz hospital </td>
+<td width="237" valign="top">
+<p>015 55 0750/3058</p>
+</td>
+<td width="237" valign="top">
+<p>Senwabarwana </p>
+</td>
+</tr><tr><td width="256" valign="top">W.F Knobel hospital </td>
+<td width="237" valign="top">
+<p>015 221 1500</p>
+</td>
+<td width="237" valign="top">
+<p>Moletji</p>
+</td>
+</tr><tr><td width="256" valign="top">Botlokwa hospital </td>
+<td width="237" valign="top">
+<p>015 527 8000</p>
+</td>
+<td width="237" valign="top">
+<p>Botlokwa</p>
+</td>
+</tr><tr><td width="256" valign="top">Zebediela hospital </td>
+<td width="237" valign="top">
+<p>015 662 0787</p>
+</td>
+<td width="237" valign="top">
+<p>Zebediela</p>
+</td>
+</tr><tr><td width="256" valign="top">Lebowakgomo hospital</td>
+<td width="237" valign="top">
+<p>015 632 6900</p>
+</td>
+<td width="237" valign="top">
+<p>Lebowakgomo</p>
+</td>
+</tr></table>
+
+<button id="toggleTable2" style="margin-bottom:10px;">Show Hospitals </button>
+         <table id="customers2" cellspacing="0" cellpadding="0" width="499"><tr>
+    Mopane District Office: 015 81 6500
+</tr><tr><td width="237" valign="top">
+<p><strong>HOSPITALS</strong></p>
+</td>
+<td width="237" valign="top">
+<p><strong>TEL NUMBER</strong></p>
+</td>
+<td width="237" valign="top">
+<p><strong>LOCATION</strong></p>
+</td>
+</tr><tr><td width="256" valign="top">Dr  CN Phatudi hospital </td>
+<td width="237" valign="top">
+<p>015 355  8000</p>
+</td>
+<td width="237" valign="top">
+<p>Ga Moloi</p>
+</td>
+</tr><tr><td width="256" valign="top">Sekororo  hospital </td>
+<td width="237" valign="top">
+<p>015 383  9400</p>
+</td>
+<td width="237" valign="top">
+<p>Sekororo</p>
+</td>
+</tr><tr><td width="256" valign="top">Kgapane  hospital </td>
+<td width="237" valign="top">
+<p>015 328 3510/1</p>
+</td>
+<td width="237" valign="top">
+<p>Kgapane </p>
+</td>
+</tr><tr><td width="256" valign="top">Nkhensani  hospital </td>
+<td width="237" valign="top">
+<p>015 812  3251</p>
+</td>
+<td width="237" valign="top">
+<p>Giyani  </p>
+</td>
+</tr><tr><td width="256" valign="top">Van  Welden hospital </td>
+<td width="237" valign="top">
+<p>015 307  8800</p>
+</td>
+<td width="237" valign="top">
+<p>Tzaneen  </p>
+</td>
+</tr><tr><td width="256" valign="top">Maphutha  L Malatji hospital </td>
+<td width="237" valign="top">
+<p>015 769  1520</p>
+</td>
+<td width="237" valign="top">
+<p>Namakgale </p>
+</td>
+</tr></table>
+
+<button id="toggleTable3" style="margin-bottom:10px;">Show Hospitals </button>
+          <table id="customers3" cellspacing="0" cellpadding="0" width="499"><tr>
+   Vhembe District Office: 015 962 1001
+</tr><tr><td width="237" valign="top">
+<p><strong>HOSPITALS</strong></p>
+</td>
+<td width="237" valign="top">
+<p><strong>TEL NUMBER</strong></p>
+</td>
+<td width="237" valign="top">
+<p><strong>LOCATION</strong></p>
+</td>
+</tr><tr><td width="256" valign="top">Elim hospital  </td>
+<td width="237" valign="top">
+<p>015 556 3201/4152</p>
+</td>
+<td width="237" valign="top">
+<p>Elim </p>
+</td>
+</tr><tr><td width="256" valign="top">Donald Fraser hospital </td>
+<td width="237" valign="top">
+<p>015 963 1778/79/83/84//91</p>
+</td>
+<td width="237" valign="top">
+<p>Vhufuli, Vhenda</p>
+</td>
+</tr><tr><td width="256" valign="top">Malamulele hospital </td>
+<td width="237" valign="top">
+<p>015 851 0026</p>
+</td>
+<td width="237" valign="top">
+<p>Malamulele</p>
+</td>
+</tr><tr><td width="256" valign="top">Louis Trichardt hospital </td>
+<td width="237" valign="top">
+<p>015  516 0148/0149/0150</p>
+</td>
+<td width="237" valign="top">
+<p>Louis Trichardt</p>
+</td>
+</tr><tr><td width="256" valign="top">Siloam hospital </td>
+<td width="237" valign="top">
+<p>015 973 0004/0522 </p>
+</td>
+<td width="237" valign="top">
+<p>Siloam</p>
+</td>
+</tr><tr><td width="256" valign="top">Musina  hospital </td>
+<td width="237" valign="top">
+<p>015 534 0446</p>
+</td>
+<td width="237" valign="top">
+<p>Musina </p>
+</td>
+</tr></table>
+
+
+    </div>
+
+  </div>
+
+
+
+<!-- ✅ Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>Services</h4>
+        <p>Area of Interest</p>
+        <p>Audiences</p>
+        <p>Life Events</p>
+      </div>
+
+      <div class="footer-column">
+        <h4>Media</h4>
+        <p>News</p>
+        <p>Announcements</p>
+        <p>Images</p>
+        <p>Videos</p>
+        <p>Projects</p>
+        <p>Events</p>
+        <p>Publications</p>
+      </div>
+
+      <div class="footer-column">
+        <h4>Our Organisation</h4>
+        <p>Departments</p>
+        <p>Institutions</p>
+        <p>Municipalities</p>
+      </div>
+
+      <div class="footer-column">
+        <h4>General enquiries</h4>
+        <p><strong>Contact number:</strong><br>+27 15 293 6000</p>
+        <p><strong>Hotline:</strong><br> 0800 91 91 91</p> 
+        <p><strong>Email address:</strong><br>Lppd.cpu@gmail.com</p>
+        <p><strong>Address:</strong><br>18 College Street<br>Fidel Castro Ruz House<br>Polokwane, South Africa</p>
+      </div>
+
+      <div class="footer-column">
+        <h4>Connect with us</h4>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/LimpopoDepartmentOfHealthBophelong" target="_blank"><i class="fa fa-facebook"></i></a>
+          <a href="https://twitter.com/HealthLimpopo" target="_blank"><i class="fa fa-twitter"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-column">
+        <h4>Download South African<br>Government App</h4>
+        <div class="app-icons">
+          <a href="https://play.google.com/store/apps/details?id=za.gov.sagovapp" target="_blank"><i class="fa fa-android"></i></a>
+          <a href="https://apps.apple.com/za/app/south-african-government/id1363173160" target="_blank"><i class="fa fa-apple"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>SITA Copyright © 2025</p>
+    </div>
+  </footer>
+
+</body>
+
+</html>
