@@ -254,9 +254,115 @@ h3{
   color: white;
 }
 
+/* css for college.html */
+/* css for limpopo nursing college info */
 
+/* Style for the College page main content box */
+#L {
+  background: #fff;
+  max-width: 900px;
+  margin: 32px auto 24px auto;
+  padding: 32px 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(25,96,32,0.10);
+  border-left: 6px solid #1b7d2b;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
 
+/* Headings */
+#L h1 {
+  color: #1b7d2b;
+  font-size: 2rem;
+  margin-bottom: 18px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
 
+#L h2 {
+  color: #196020;
+  font-size: 1.3rem;
+  margin-top: 24px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  border-bottom: 2px solid #196020; /* changed from #0077b5 (blue) to #196020 (green) */
+  padding-bottom: 0.5rem;
+}
+
+#L h4 {
+  color: #196020;
+  margin-top: 24px;
+  margin-bottom: 10px;
+  font-size: 1.15rem;
+  font-weight: bold;
+}
+
+/* Paragraphs */
+#L p {
+  font-size: 1.08rem;
+  color: #196020;
+  line-height: 1.7;
+  margin-bottom: 18px;
+  background: #f7faf7;
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(25,96,32,0.04);
+  word-break: break-word;
+}
+
+/* Lists */
+#L ul {
+  margin-bottom: 18px;
+  padding-left: 22px;
+}
+
+#L ul.no-li-icon li {
+  list-style-type: disc;
+  margin-bottom: 8px;
+  color: #196020;
+  font-size: 1.08rem;
+}
+
+#L ul.li-dash li {
+  list-style-type: "- ";
+  margin-bottom: 8px;
+  color: #196020;
+  font-size: 1.08rem;
+  padding-left: 6px;
+}
+
+/* Links */
+#L a {
+  color: #1b7d2b;
+  text-decoration: underline;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+#L a:hover {
+  color: #196020;
+  text-decoration: none;
+}
+
+/* Responsive for mobile screens */
+@media screen and (max-width: 500px) {
+  #L {
+    padding: 18px 6px;
+    border-radius: 10px;
+    font-size: 4vw;
+  }
+  #L h1 {
+    font-size: 6vw;
+  }
+  #L h2 {
+    font-size: 5vw;
+  }
+  #L h4 {
+    font-size: 4.5vw;
+  }
+  #L p, #L ul.no-li-icon li, #L ul.li-dash li {
+    font-size: 4vw;
+    padding: 8px 4vw;
+  }
+}
 
 
 
