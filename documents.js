@@ -1,17 +1,15 @@
-// admin.js (must be loaded with <script type="module"> in HTML)
 import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
-console.log("admin.js loaded");
-
-// Supabase anon key exactly as you provided
+// Supabase anon key
 const SUPABASE_URL = "https://runubjjjseujpnkkuveu.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnViampqc2V1anBua2t1dmV1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1ODM3NDYwNCwiZXhwIjoyMDczOTUwNjA0fQ.N0sHg1kqrL7F7h0R8Vw3Q2FulHVU9S3-JY4utWfHC94";
-
+const SUPABASE_KEY = "";
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
+// DOM Elements
 const form = document.getElementById("upload-form");
 const list = document.getElementById("documents-list");
 const notification = document.getElementById("notification");
+const categorySelect = document.getElementById("category"); // select element to pick table
 
 function showNotification(message, type = "success", duration = 3000) {
   notification.textContent = message;
@@ -20,10 +18,15 @@ function showNotification(message, type = "success", duration = 3000) {
   if (duration > 0) setTimeout(() => (notification.style.display = "none"), duration);
 }
 
-// Load documents from DB
+// Load documents dynamically based on selected category
 async function loadDocuments() {
+  const category = categorySelect.value;
+  if (!category) return;
+
+  list.innerHTML = "<p class='spinner'>Loading documents...</p>";
+
   const { data, error } = await supabase
-    .from("news_documents")
+    .from(category)
     .select("*")
     .order("created_at", { ascending: false });
 
@@ -33,7 +36,6 @@ async function loadDocuments() {
   }
 
   list.innerHTML = "";
-
   if (!data || data.length === 0) {
     list.innerHTML = "<p>No documents found.</p>";
     return;
@@ -44,8 +46,8 @@ async function loadDocuments() {
     div.className = "document-item";
     div.innerHTML = `
       <span>${doc.title}</span>
-      <button onclick="downloadDocument('${doc.title}')">Download</button>
-      <button onclick="deleteDocument('${doc.id}', '${doc.title}')">Delete</button>
+      <button onclick="downloadDocument('${category}', '${doc.title}')">Download</button>
+      <button onclick="deleteDocument('${category}', '${doc.id}', '${doc.title}')">Delete</button>
     `;
     list.appendChild(div);
   });
@@ -55,48 +57,36 @@ async function loadDocuments() {
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  const category = categorySelect.value;
   const rawTitle = document.getElementById("title").value.trim();
   const file = document.getElementById("pdf_file").files[0];
 
-  if (!rawTitle || !file) {
-    return showNotification("Please provide both title and PDF file", "error", 4000);
+  if (!category || !rawTitle || !file) {
+    return showNotification("Please select a category and provide a title and PDF file", "error", 4000);
   }
-
   if (file.type !== "application/pdf") {
     return showNotification("Only PDF files are allowed", "error", 4000);
   }
 
   // Sanitize title
-  const baseName = rawTitle.replace(/\.[^/.]+$/, "");
-  const safeBase = baseName.replace(/\s+/g, "_").replace(/[^\w\-]/g, "");
-  if (!safeBase) {
-    return showNotification("Title cannot be empty after sanitization", "error", 4000);
-  }
+  const baseName = rawTitle.replace(/\.[^/.]+$/, "").replace(/\s+/g, "_").replace(/[^\w\-]/g, "");
+  if (!baseName) return showNotification("Title cannot be empty after sanitization", "error", 4000);
 
-  const storageFilename = `${safeBase}.pdf`;
+  const storageFilename = `${baseName}.pdf`;
   showNotification("Uploading document...", "success", 0);
 
-  // Upload PDF to storage
   const { error: storageError } = await supabase.storage
-    .from("news_pdfs")
+    .from(`${category}_bucket`)
     .upload(storageFilename, file, { upsert: true });
 
-  if (storageError) {
-    console.error("Storage error:", storageError);
-    return showNotification("File upload failed: " + storageError.message, "error", 4000);
-  }
+  if (storageError) return showNotification("File upload failed: " + storageError.message, "error", 4000);
 
-  // Debug: log title before inserting
-  console.log("Inserting row with title:", safeBase);
-
-  // Insert into DB after successful upload
   const { error: dbError } = await supabase
-    .from("news_documents")
-    .insert([{ title: safeBase }]);
+    .from(category)
+    .insert([{ title: baseName }]);
 
   if (dbError) {
-    console.error("DB error:", dbError);
-    await supabase.storage.from("news_pdfs").remove([storageFilename]); // rollback
+    await supabase.storage.from(`${category}_bucket`).remove([storageFilename]);
     return showNotification("DB insert failed: " + dbError.message, "error", 4000);
   }
 
@@ -105,51 +95,45 @@ form.addEventListener("submit", async (e) => {
   loadDocuments();
 });
 
-// Download document
-window.downloadDocument = async function(title) {
-  const filename = `${title}.pdf`;
+// Download
+window.downloadDocument = async function(category, title) {
   const { data, error } = await supabase.storage
-    .from("news_pdfs")
-    .createSignedUrl(filename, 60);
+    .from(`${category}_bucket`)
+    .createSignedUrl(`${title}.pdf`, 60);
 
-  if (error) {
-    console.error("Download error:", error);
-    return showNotification("Failed to download: " + error.message, "error");
-  }
+  if (error) return showNotification("Failed to download: " + error.message, "error");
 
   const a = document.createElement("a");
   a.href = data.signedUrl;
-  a.download = filename;
+  a.download = `${title}.pdf`;
   document.body.appendChild(a);
   a.click();
   a.remove();
 };
 
-// Delete document
-window.deleteDocument = async function(id, title) {
+// Delete
+window.deleteDocument = async function(category, id, title) {
   if (!confirm("Delete this document?")) return;
 
-  const filename = `${title}.pdf`;
   const { error: storageError } = await supabase.storage
-    .from("news_pdfs")
-    .remove([filename]);
+    .from(`${category}_bucket`)
+    .remove([`${title}.pdf`]);
 
-  if (storageError) {
-    return showNotification("Delete storage failed: " + storageError.message, "error");
-  }
+  if (storageError) return showNotification("Delete storage failed: " + storageError.message, "error");
 
   const { error: dbError } = await supabase
-    .from("news_documents")
+    .from(category)
     .delete()
     .eq("id", id);
 
-  if (dbError) {
-    return showNotification("Delete DB failed: " + dbError.message, "error");
-  }
+  if (dbError) return showNotification("Delete DB failed: " + dbError.message, "error");
 
   showNotification("Document deleted successfully!");
   loadDocuments();
 };
+
+// Reload documents when category changes
+categorySelect.addEventListener("change", loadDocuments);
 
 // Initial load
 loadDocuments();
