@@ -242,7 +242,9 @@ h1 {
   cursor: pointer;
   transition: background-color 0.3s ease;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 15px; /* <-- Add this line */
 }
+
 
 .newsletter-card:hover {
   background-color: #e6f0ff;
@@ -258,4 +260,19 @@ h1 {
 .type-icon {
   font-size: 20px;
   color: #0078D7;
+}
+
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #4CAF50;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 40px auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

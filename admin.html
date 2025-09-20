@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Manage News</title>
+  <link rel="stylesheet" href="admin.css">
+  <script type="module" defer src="admin.js"></script>
+</head>
+<body>
+  <div class="admin-container">
+    <h1>Manage News PDFs</h1>
+
+    <!-- Upload Form -->
+    <form id="upload-form">
+      <input type="text" id="title" placeholder="Document Title" required>
+      <input type="url" id="pdf_url" placeholder="PDF URL (https://...)" required>
+      <button type="submit">Add Document</button>
+    </form>
+
+    <h2>Existing Documents</h2>
+    <div id="documents-list"></div>
+  </div>
+</body>
+</html>
+

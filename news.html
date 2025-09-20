@@ -1,123 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="news.css">
-     <script src="app.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="news.css">
+  <script type="module" defer src="news.js"></script>
 </head>
-
 <body>
-    <div id="primary_header">
-    <img id ="logo" src="images/limpop-province.png"   >
-
+  <div id="primary_header">
+    <img id="logo" src="images/limpop-province.png" alt="Limpopo Province Logo">
   </div>
 
-    <div id="secondary_header">
-       
-        <h1>Department of Health</h1>
-    </div>
+  <div id="secondary_header">
+    <h1>Department of Health</h1>
+  </div>
 
-    <div id="nav">
-      <div id="navbar">
-        <a class="active" href="index.html">Home</a>
-        <a href="news.html">News</a> 
-        <a href="about_us.html">About us</a> 
-        <a href="Documents.html">Documents</a>
-        <a href="Jobs.html">Jobs</a>
-        <a href="services.html">Services</a>
-        <a href="HealthFacilities.html">Health Facilities</a> 
-        <a href="#tendors">Tenders</a>
-        <a href="#contact">Contact us</a> 
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-         <i class="fa fa-bars"></i></a>
-                                 
-      </div>                          
+  <div id="nav">
+    <div id="navbar">
+      <a class="active" href="index.html">Home</a>
+      <a href="news.html">News</a>
+      <a href="about_us.html">About us</a>
+      <a href="Documents.html">Documents</a>
+      <a href="Jobs.html">Jobs</a>
+      <a href="services.html">Services</a>
+      <a href="HealthFacilities.html">Health Facilities</a>
+      <a href="#tendors">Tenders</a>
+      <a href="#contact">Contact us</a>
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
   </div>
 
   <div id="main-content">
+    <h2 style="text-align:center; margin-bottom:20px;">Latest News</h2>
 
+    <!-- Loading Spinner -->
+    <div id="loading" class="spinner"></div>
 
+    <!-- News Cards Container -->
+    <div id="news-container"></div>
 
-    
-  <!-- Budget Speech Entries -->
-  <div class="newsletter-card" onclick="window.location.href='https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/Budget%20Vote%20Speech%20-%20MEC%20Dieketseng25.pdf'">
-    <h3>Budget Vote Speech - MEC Dhlomo</h3>
-    <span class="type-icon">📄</span>
-  </div>
-  <div class="newsletter-card" onclick="window.location.href=' https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/BUDGET%20SPEECH%20FINAL%20APRIL%202025.pdf '">
-  <h3>BUDGET SPEECH FINAL APRIL 2025</h3>
-  <span class="type-icon">📄</span>
-</div>
-  <div class="newsletter-card" onclick="window.location.href='https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/Budget%20Vote_Speech_Vote%207_August_2024.pdf'">
-    <h3>Budget Vote Speech, Vote 7_August_2024</h3>
-    <span class="type-icon">📄</span>
-  </div>
-  <div class="newsletter-card" onclick="window.location.href='https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/Budget%20Vote_Speech_Vote%207_August_2024.pdf'">
-    <h3>LDHoH-Health Budget March 2024 FINAL</h3>
-    <span class="type-icon">📄</span>
-  </div>
-  <div class="newsletter-card" onclick="window.location.href='https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/WOUND%20CARE%20SPEECH230517.pdf'">
-    <h3>Annual Wound Care</h3>
-    <span class="type-icon">📄</span>
-  </div>
-  <div class="newsletter-card" onclick="window.location.href='https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/Budget%20Speech%20202324%20Dpt%20of%20Health-1.pdf'">
-    <h3>Budget Speech 2023/24 Dept of Health-1</h3>
-    <span class="type-icon">📄</span>
-  </div>
-  <div class="newsletter-card" onclick="window.location.href='https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/BUDGET%20VOTE7%202022-23%20final%20DRAFT-29%20MARCH_300322.pdf'">
-    <h3>Budget vote 7 2023/24 final draft-29 March</h3>
-    <span class="type-icon">📄</span>
-  </div>
-  <div class="newsletter-card" onclick="window.location.href='https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/Budget%20Speech%2020212022%20BB31032021.pdf'">
-    <h3>Budget speech vote 7 for the department of health 2021/22</h3>
-    <span class="type-icon">📄</span>
-  </div>
-  <div class="newsletter-card" onclick="window.location.href='https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/Budget%20Speech%202020.2021.pdf'">
-    <h3>Budget Speech 2020/2021</h3>
-    <span class="type-icon">📄</span>
+    <!-- No News Message -->
+    <p id="no-news" style="text-align:center; padding:20px; display:none;">
+      No news found.
+    </p>
   </div>
 
-  <!-- Newsletter Entries -->
-  <div class="newsletter-card" onclick="window.location.href='https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/EXTERNAL%20NEWSLETTER.%20APRIL%20-%20JUNE%202025_compressed.pdf'">
-    <h3>EXTERNAL NEWSLETTER: APRIL – JUNE 2015</h3>
-    <span class="type-icon">📄</span>
-  </div>
-  <div class="newsletter-card" onclick="window.location.href='https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/External%20Newsletter(Special%20Edition)%20April%202025.pdf'">
-    <h3>External Newsletter (Special Edition) April 2015</h3>
-    <span class="type-icon">📄</span>
-  </div>
-  <div class="newsletter-card" onclick="window.location.href='https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/External%20Newsletter%20March%202025.pdf'">
-    <h3>External Newsletter March 2015</h3>
-    <span class="type-icon">📄</span>
-  </div>
-  <div class="newsletter-card" onclick="window.location.href='https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/Media%20advisory%2026%20JULY%202021_2607.pdf'">
-    <h3>External Newsletter September 2014</h3>
-    <span class="type-icon">📄</span>
-  </div>
-  <div class="newsletter-card" onclick="window.location.href='https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/media%20statement%20refuting%20EFF%20lies%20on%20the%20province%20Oncology%20unit.pdf'">
-    <h3>External Newsletter July-August 2014 Edition</h3>
-    <span class="type-icon">📄</span>
-  </div>
-  <div class="newsletter-card" onclick="window.location.href='https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/External%20Newsletter%20July%202024.pdf'">
-    <h3>External Newsletter July 2014</h3>
-    <span class="type-icon">📄</span>
-  </div>
-  <div class="newsletter-card" onclick="window.location.href='https://www.ldoh.gov.za/ldoh-admin/documents/latestnews/documents/Newsletter%20Special%20Edition%20June%202024%20online.pdf'">
-    <h3>Newsletter Special Edition June 2012 online</h3>
-    <span class="type-icon">📄</span>
-  </div>
-
-
-
-</div>
-
-
-
-
-<!-- ✅ Footer -->
+  <!-- ✅ Footer -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-column">
@@ -174,7 +106,5 @@
       <p>SITA Copyright © 2025</p>
     </div>
   </footer>
-
 </body>
-
 </html>
