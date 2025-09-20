@@ -3,88 +3,180 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, sans-serif;
+  min-height: 0;
 }
 
-body {
-  background-color: #f5f6f8;
-  color: #333;
-  line-height: 1.6;
-  padding: 30px;
+/* Make the body take full height */
+html, body {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
-h1 {
-  margin-bottom: 20px;
-  font-size: 2rem;
-  color: #222;
-}
-
-h2 {
-  margin-bottom: 10px;
-  font-size: 1.4rem;
-  color: #444;
-}
-
-section {
-  background: #fff;
+/* Header */
+header {
+  background-color: #006d5b;
+  color: white;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 600px;
-  margin-bottom: 30px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-input[type="text"],
-select,
-input[type="file"] {
+header img {
+  height: 80px;
+  margin-right: 15px;
+}
+
+header h1 {
+  font-size: 24px;
+}
+
+/* Navigation */
+nav {
+  background-color: #00997a;
   padding: 10px;
-  margin: 5px 0;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  width: 100%;
-  font-size: 14px;
+  text-align: center;
 }
 
-button {
-  margin: 8px 5px 8px 0;
-  padding: 10px 18px;
-  font-size: 14px;
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
   font-weight: bold;
-  color: #fff;
-  background-color: #007bff;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Main content */
+main {
+  flex: 1; /* Takes all remaining vertical space */
+  padding: 20px;
+}
+
+/* Bucket sections */
+.bucket {
+  margin-bottom: 40px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+}
+
+.bucket h2 {
+  margin-bottom: 10px;
+  color: #006d5b;
+}
+
+.bucket form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.bucket input[type="text"],
+.bucket input[type="file"],
+.bucket select {
+  padding: 6px;
+  flex: 1 1 200px;
+}
+
+.bucket button {
+  padding: 6px 12px;
+  background-color: #006d5b;
+  color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background 0.2s ease;
 }
 
-button:hover {
-  background-color: #0056b3;
+.bucket button:hover {
+  background-color: #00997a;
 }
 
-#newsList,
-#docList {
-  margin-top: 15px;
-  padding: 10px;
-  border-top: 1px solid #eee;
-}
-
-#newsList ul,
-#docList ul {
-  list-style: none;
+/* Stored documents list */
+.stored-list {
   margin-top: 10px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
 }
 
-#newsList li,
-#docList li {
-  padding: 8px 12px;
-  margin-bottom: 6px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background: #fafafa;
-  font-size: 14px;
+.stored-list.hidden {
+  display: none;
+}
+
+.document-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.document-item span {
+  flex: 1;
+}
+
+.document-item button {
+  padding: 4px 8px;
+  margin-left: 5px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+}
+
+.document-item button.view-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.document-item button.delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.document-item button:hover {
+  opacity: 0.8;
+}
+
+/* Footer */
+footer {
+  background-color: #f1f1f1;
+  color: #333;
+  text-align: center;
+  padding: 15px 0;
+  /* sticky footer */
+  margin-top: auto; 
+}
+.message-container {
+  padding: 12px 20px;
+  margin: 10px auto;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.message-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.hidden {
+  display: none;
 }

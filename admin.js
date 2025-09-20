@@ -1,155 +1,189 @@
-// admin.js (must be loaded with <script type="module"> in HTML)
 import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
-console.log("admin.js loaded");
-
-// Supabase anon key exactly as you provided
+// Supabase credentials
 const SUPABASE_URL = "https://runubjjjseujpnkkuveu.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnViampqc2V1anBua2t1dmV1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1ODM3NDYwNCwiZXhwIjoyMDczOTUwNjA0fQ.N0sHg1kqrL7F7h0R8Vw3Q2FulHVU9S3-JY4utWfHC94";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnViampqc2V1anBua2t1dmV1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1ODM3NDYwNCwiZXhwIjoyMDczOTUwNjA0fQ.N0sHg1kqrL7F7h0R8Vw3Q2FulHVU9S3-JY4utWfHC94";
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const form = document.getElementById("upload-form");
-const list = document.getElementById("documents-list");
-const notification = document.getElementById("notification");
+// Mapping of document tables to storage buckets
+const bucketMap = {
+  news_documents: "news_pdf",
+  paipa: "paipa",
+  policies: "policies",
+  annual_report: "annual_report",
+  annual_performance_plan: "annual_performance_plan",
+  budget_speech: "budget_speech",
+  department_strategic_plan: "department_strategic_plan",
+  application_forms_for_private_health_facilities: "application_forms_for_private_health_facilities"
+};
 
-function showNotification(message, type = "success", duration = 3000) {
-  notification.textContent = message;
-  notification.style.display = "block";
-  notification.style.backgroundColor = type === "success" ? "#4CAF50" : "#f44336";
-  if (duration > 0) setTimeout(() => (notification.style.display = "none"), duration);
+// -------------------
+// Show message helper
+// -------------------
+function showMessage(message, type = "success", duration = 3000) {
+  const container = document.getElementById("messageContainer");
+  container.textContent = message;
+  container.className = `message-container message-${type}`;
+  container.classList.remove("hidden");
+
+  setTimeout(() => {
+    container.classList.add("hidden");
+  }, duration);
 }
 
-// Load documents from DB
-async function loadDocuments() {
-  const { data, error } = await supabase
+// -------------------
+// Upload News
+// -------------------
+const newsForm = document.getElementById("newsForm");
+newsForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const title = document.getElementById("newsTitle").value.trim();
+  const fileInput = document.getElementById("newsFile");
+  if (!fileInput.files.length) return showMessage("Please select a file", "error");
+
+  const file = fileInput.files[0];
+  const bucket = bucketMap.news_documents;
+
+  const { error: uploadError } = await supabase.storage
+    .from(bucket)
+    .upload(file.name, file, { cacheControl: "3600", upsert: true });
+
+  if (uploadError) return showMessage("Upload failed: " + uploadError.message, "error");
+
+  const { error: dbError } = await supabase
     .from("news_documents")
-    .select("*")
-    .order("created_at", { ascending: false });
+    .insert([{ title, file_name: file.name }]);
+
+  if (dbError) return showMessage("Database insert failed: " + dbError.message, "error");
+
+  showMessage("News uploaded successfully!", "success");
+  newsForm.reset();
+  showDocuments("news_documents", "newsList");
+});
+
+// -------------------
+// Upload Documents
+// -------------------
+const docsForm = document.getElementById("docsForm");
+docsForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const title = document.getElementById("docTitle").value.trim();
+  const fileInput = document.getElementById("docFile");
+  const category = document.getElementById("categorySelect").value;
+
+  if (!category) return showMessage("Please select a category", "error");
+  if (!fileInput.files.length) return showMessage("Please select a file", "error");
+
+  const file = fileInput.files[0];
+  const bucket = bucketMap[category];
+
+  const { error: uploadError } = await supabase.storage
+    .from(bucket)
+    .upload(file.name, file, { cacheControl: "3600", upsert: true });
+
+  if (uploadError) return showMessage("Upload failed: " + uploadError.message, "error");
+
+  const { error: dbError } = await supabase
+    .from(category)
+    .insert([{ title, file_name: file.name }]);
+
+  if (dbError) return showMessage("Database insert failed: " + dbError.message, "error");
+
+  showMessage("Document uploaded successfully!", "success");
+  docsForm.reset();
+  showDocuments(category, "docsList");
+});
+
+// -------------------
+// Show/Hide Stored Documents (Toggle)
+// -------------------
+document.querySelectorAll(".show-btn").forEach((btn) => {
+  btn.addEventListener("click", async () => {
+    const targetListId = btn.getAttribute("data-target");
+    const listDiv = document.getElementById(targetListId);
+
+    // Toggle visibility
+    if (!listDiv.classList.contains("hidden")) {
+      listDiv.classList.add("hidden");
+      return;
+    }
+
+    let tableName;
+    if (targetListId === "newsList") tableName = "news_documents";
+    else {
+      const category = document.getElementById("categorySelect").value;
+      if (!category) return showMessage("Please select a category first", "error");
+      tableName = category;
+    }
+
+    showDocuments(tableName, targetListId);
+  });
+});
+
+// -------------------
+// Fetch and Display Documents
+// -------------------
+async function showDocuments(tableName, listId) {
+  const { data, error } = await supabase.from(tableName).select("*");
+  const listDiv = document.getElementById(listId);
+  listDiv.innerHTML = "";
+  listDiv.classList.remove("hidden");
 
   if (error) {
-    console.error("Load error:", error);
-    return showNotification("Error loading documents: " + error.message, "error");
-  }
-
-  list.innerHTML = "";
-
-  if (!data || data.length === 0) {
-    list.innerHTML = "<p>No documents found.</p>";
+    listDiv.innerHTML = `<p class="empty">Error fetching documents: ${error.message}</p>`;
     return;
   }
 
-  data.forEach(doc => {
-    const div = document.createElement("div");
-    div.className = "document-item";
-    div.innerHTML = `
-      <span>${doc.title}</span>
-      <button onclick="downloadDocument('${doc.title}')">Download</button>
-      <button onclick="deleteDocument('${doc.id}', '${doc.title}')">Delete</button>
-    `;
-    list.appendChild(div);
+  if (!data.length) {
+    listDiv.innerHTML = `<p class="empty">No documents</p>`;
+    return;
+  }
+
+  data.forEach((doc) => {
+    const item = document.createElement("div");
+    item.className = "document-item";
+
+    const titleSpan = document.createElement("span");
+    titleSpan.textContent = doc.title;
+
+    const viewBtn = document.createElement("button");
+    viewBtn.className = "view-btn";
+    viewBtn.textContent = "View";
+    viewBtn.addEventListener("click", async () => {
+      const bucket = bucketMap[tableName];
+      const { data: fileData, error: fileError } = await supabase.storage
+        .from(bucket)
+        .getPublicUrl(doc.file_name);
+      if (fileError) return showMessage("Cannot open file: " + fileError.message, "error");
+      window.open(fileData.publicUrl, "_blank");
+    });
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "delete-btn";
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", async () => {
+      if (!confirm(`Delete document "${doc.title}"?`)) return;
+
+      const bucket = bucketMap[tableName];
+      const { error: storageError } = await supabase.storage
+        .from(bucket)
+        .remove([doc.file_name]);
+      if (storageError) return showMessage("Failed to delete file: " + storageError.message, "error");
+
+      const { error: dbError } = await supabase
+        .from(tableName)
+        .delete()
+        .eq("id", doc.id);
+      if (dbError) return showMessage("Failed to delete record: " + dbError.message, "error");
+
+      showMessage("Document deleted successfully!", "success");
+      showDocuments(tableName, listId);
+    });
+
+    item.appendChild(titleSpan);
+    item.appendChild(viewBtn);
+    item.appendChild(deleteBtn);
+    listDiv.appendChild(item);
   });
 }
-
-// Upload handler
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const rawTitle = document.getElementById("title").value.trim();
-  const file = document.getElementById("pdf_file").files[0];
-
-  if (!rawTitle || !file) {
-    return showNotification("Please provide both title and PDF file", "error", 4000);
-  }
-
-  if (file.type !== "application/pdf") {
-    return showNotification("Only PDF files are allowed", "error", 4000);
-  }
-
-  // Sanitize title
-  const baseName = rawTitle.replace(/\.[^/.]+$/, "");
-  const safeBase = baseName.replace(/\s+/g, "_").replace(/[^\w\-]/g, "");
-  if (!safeBase) {
-    return showNotification("Title cannot be empty after sanitization", "error", 4000);
-  }
-
-  const storageFilename = `${safeBase}.pdf`;
-  showNotification("Uploading document...", "success", 0);
-
-  // Upload PDF to storage
-  const { error: storageError } = await supabase.storage
-    .from("news_pdfs")
-    .upload(storageFilename, file, { upsert: true });
-
-  if (storageError) {
-    console.error("Storage error:", storageError);
-    return showNotification("File upload failed: " + storageError.message, "error", 4000);
-  }
-
-  // Debug: log title before inserting
-  console.log("Inserting row with title:", safeBase);
-
-  // Insert into DB after successful upload
-  const { error: dbError } = await supabase
-    .from("news_documents")
-    .insert([{ title: safeBase }]);
-
-  if (dbError) {
-    console.error("DB error:", dbError);
-    await supabase.storage.from("news_pdfs").remove([storageFilename]); // rollback
-    return showNotification("DB insert failed: " + dbError.message, "error", 4000);
-  }
-
-  showNotification(`Document "${baseName}" added successfully!`);
-  form.reset();
-  loadDocuments();
-});
-
-// Download document
-window.downloadDocument = async function(title) {
-  const filename = `${title}.pdf`;
-  const { data, error } = await supabase.storage
-    .from("news_pdfs")
-    .createSignedUrl(filename, 60);
-
-  if (error) {
-    console.error("Download error:", error);
-    return showNotification("Failed to download: " + error.message, "error");
-  }
-
-  const a = document.createElement("a");
-  a.href = data.signedUrl;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-};
-
-// Delete document
-window.deleteDocument = async function(id, title) {
-  if (!confirm("Delete this document?")) return;
-
-  const filename = `${title}.pdf`;
-  const { error: storageError } = await supabase.storage
-    .from("news_pdfs")
-    .remove([filename]);
-
-  if (storageError) {
-    return showNotification("Delete storage failed: " + storageError.message, "error");
-  }
-
-  const { error: dbError } = await supabase
-    .from("news_documents")
-    .delete()
-    .eq("id", id);
-
-  if (dbError) {
-    return showNotification("Delete DB failed: " + dbError.message, "error");
-  }
-
-  showNotification("Document deleted successfully!");
-  loadDocuments();
-};
-
-// Initial load
-loadDocuments();

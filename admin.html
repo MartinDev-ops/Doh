@@ -5,24 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="admin.css" />
-  <!-- Script moved to head with defer -->
   <script type="module" src="admin.js" defer></script>
 </head>
 <body>
   <header>
-    <h1>Admin Dashboard</h1>
+    <div class="logo">
+      <img src="images/limpop-province.png" alt="Limpopo Logo">
+      <h1>Department of Health - Admin Dashboard</h1>
+    </div>
   </header>
+
+  <!-- Message container -->
+  <div id="messageContainer" class="message-container hidden"></div>
 
   <main>
     <!-- News Section -->
     <section class="bucket">
-      <h2>News</h2>
+      <h2>News Documents</h2>
       <form id="newsForm">
         <input type="text" id="newsTitle" placeholder="Enter news title" required />
         <input type="file" id="newsFile" required />
         <button type="submit">Upload News</button>
       </form>
-      <button class="show-btn" data-target="newsList">Show Stored</button>
+      <button class="show-btn" data-target="newsList">Show Current News</button>
       <div id="newsList" class="stored-list hidden">
         <p class="empty">No documents</p>
       </div>
@@ -34,13 +39,28 @@
       <form id="docsForm">
         <input type="text" id="docTitle" placeholder="Enter document title" required />
         <input type="file" id="docFile" required />
+        <label for="categorySelect">Select Category:</label>
+        <select id="categorySelect" required>
+          <option value="">--Choose a category--</option>
+          <option value="paipa">Paipa</option>
+          <option value="policies">Policies</option>
+          <option value="annual_report">Annual Report</option>
+          <option value="annual_performance_plan">Annual Performance Plan</option>
+          <option value="budget_speech">Budget Speech</option>
+          <option value="department_strategic_plan">Department Strategic Plan</option>
+          <option value="application_forms_for_private_health_facilities">Application Forms for Private Health Facilities</option>
+        </select>
         <button type="submit">Upload Document</button>
       </form>
-      <button class="show-btn" data-target="docsList">Show Stored</button>
+      <button class="show-btn" data-target="docsList">Show Current Documents</button>
       <div id="docsList" class="stored-list hidden">
         <p class="empty">No documents</p>
       </div>
     </section>
   </main>
+
+  <footer>
+    <p>&copy; 2025 Department of Health - Limpopo</p>
+  </footer>
 </body>
 </html>
