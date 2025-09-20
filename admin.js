@@ -93,3 +93,5 @@ window.deleteDocument = async function(id) {
 
 // Load existing documents on page load
 loadDocuments();
+
+
