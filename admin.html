@@ -1,31 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Manage News</title>
-  <link rel="stylesheet" href="admin.css">
-  <script type="module" defer src="admin.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css" />
+  <!-- Script moved to head with defer -->
+  <script type="module" src="admin.js" defer></script>
 </head>
 <body>
-  <div class="admin-container">
-    <h1>Manage News PDFs</h1>
+  <header>
+    <h1>Admin Dashboard</h1>
+  </header>
 
-    <!-- Upload Form -->
-    <form id="upload-form">
-      <input type="text" id="title" placeholder="Document Title" required>
-      <input type="url" id="pdf_url" placeholder="PDF URL (https://...)" required>
-      <button type="submit">Add Document</button>
-    </form>
+  <main>
+    <!-- News Section -->
+    <section class="bucket">
+      <h2>News</h2>
+      <form id="newsForm">
+        <input type="text" id="newsTitle" placeholder="Enter news title" required />
+        <input type="file" id="newsFile" required />
+        <button type="submit">Upload News</button>
+      </form>
+      <button class="show-btn" data-target="newsList">Show Stored</button>
+      <div id="newsList" class="stored-list hidden">
+        <p class="empty">No documents</p>
+      </div>
+    </section>
 
-    
-    <!-- upload a pdf from the desktop / computer -->
-    <div><label for="file">Upload a file:</label> 
-    <input type="file" id="file" name="file"> </div>
-
-    <h2>Existing Documents</h2>
-    <div id="documents-list"></div>
-  </div>
+    <!-- Documents Section -->
+    <section class="bucket">
+      <h2>Documents</h2>
+      <form id="docsForm">
+        <input type="text" id="docTitle" placeholder="Enter document title" required />
+        <input type="file" id="docFile" required />
+        <button type="submit">Upload Document</button>
+      </form>
+      <button class="show-btn" data-target="docsList">Show Stored</button>
+      <div id="docsList" class="stored-list hidden">
+        <p class="empty">No documents</p>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
-

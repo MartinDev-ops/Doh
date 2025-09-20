@@ -148,7 +148,7 @@ h1 {
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
 }
 
 .dot.active {
