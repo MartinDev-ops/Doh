@@ -124,86 +124,44 @@ h1 {
 
 /* Main Content */
 #main-content {
-  background-color: rgb(255, 255, 255);
-  width: 100%;
-  z-index: 3;
-  text-align: center;
-  padding: 50px 20px;
-  height:fit-content;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 15px;
   padding: 20px;
+  max-width: 800px;
+  margin: auto;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.card{  
-  border-left: 5px solid green;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-h3{
-  font-size: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.card img{
-  width: 80px;
-  height: 80px;
-  margin-left: 20px; /* optional: adds space between text and image */
-  
-
-}
-
-/* css for AFFPHF.html */
-/* Style for the table with id="table" */
-#table {
-  border-collapse: collapse;
+#vision{
   width: 100%;
-  background-color: #fff;
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  height: fit-content;
+ padding: 10px;
+  border-left: 5px solid  rgb(1, 176, 1);
+  margin: 10px;
+  background-color: rgb(231, 237, 232);
+
 }
 
-#table th, #table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
+#Mission{
+    width:100%;
+  height: fit-content;
+ padding: 10px;
+  border-left: 5px solid  rgb(1, 176, 1);
+  margin: 10px;
+  background-color: rgb(231, 237, 231);
+
 }
 
-#table th {
-  background-color: #498e4b;
-  color: white;
-  font-size: 18px;
+#Core{
+    width: 100%;
+  height: fit-content;
+ padding: 10px;
+  border-left: 5px solid  rgb(1, 176, 1);
+  margin: 10px;
+  background-color: rgb(231, 237, 232);
+
 }
-
-#table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-#table tr:hover {
-  background-color: #e6ffe6;
-}
-
-#table a {
-  color: #196020;
-  
-}
-
-#table img {
-  width: 24px;
-  height: 24px;
-  vertical-align: middle;
-}
-
-
-
-
 
 /* ✅ Footer Styling */
 .footer {
@@ -270,154 +228,51 @@ h3{
   }
 }
 
-.spinner {
-  font-size: 16px;
-  color: #09ad5e;
-  margin: 20px 0;
-}
-
-
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Main Content */
 #main-content {
-  background-color: rgb(255, 255, 255);
-  width: 100%;
-  z-index: 3;
-  text-align: center;
-  padding: 50px 20px;
-  height: fit-content;
+  
+}
+
+.newsletter-card {
   display: flex;
-  flex-direction: column;
-  gap: 30px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+  border-left: 5px solid green;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 15px; /* <-- Add this line */
 }
 
-/* Spinner */
-.spinner {
-  font-size: 18px;
-  color: #09ad5e;
-  margin: 20px 0;
-  font-weight: bold;
+
+.newsletter-card:hover {
+  background-color: #e6f0ff;
 }
 
-/* Table Styling */
-#policies-table {
-  border-collapse: collapse;
-  width: 100%;
-  background-color: #fff;
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-}
-
-#policies-table th,
-#policies-table td {
-  border: 1px solid #ddd;
-  padding: 12px;
-  text-align: left;
-}
-
-#policies-table th {
-  background-color: #498e4b;
-  color: white;
-  font-size: 18px;
-}
-
-#policies-table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-#policies-table tr:hover {
-  background-color: #e6ffe6;
-}
-
-#policies-table a {
-  color: #196020;
-  text-decoration: none;
-}
-
-#policies-table a:hover {
-  text-decoration: underline;
-}
-
-#policies-table img {
-  width: 24px;
-  height: 24px;
-  vertical-align: middle;
-}
-
-/* No documents message */
-#no-policies {
-  color: #555;
+.newsletter-card h3 {
+  margin: 0;
   font-size: 16px;
-  margin-top: 20px;
+  font-weight: 500;
+  color: #333;
 }
 
-/* Footer (reuse your current footer colors) */
-.footer {
-  background-color: #021833;
-  color: white;
-  padding: 40px 20px 20px;
-  font-family: Arial, sans-serif;
+.type-icon {
+  font-size: 20px;
+  color: #0078D7;
 }
 
-.footer-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 1300px;
-  margin: auto;
-  text-align: left;
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #4CAF50;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 40px auto;
+  animation: spin 1s linear infinite;
 }
 
-.footer-column {
-  flex: 1 1 180px;
-  margin: 10px 20px;
-  min-width: 150px;
-}
-
-.footer-column h4 {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.footer-column p {
-  margin: 5px 0;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.footer-column p:hover {
-  text-decoration: underline;
-}
-
-.social-icons i,
-.app-icons i {
-  font-size: 28px;
-  margin: 5px;
-  cursor: pointer;
-  color: white;
-}
-
-.footer-bottom {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 13px;
-  color: #e6e6e6;
-}
-
-/* Responsive Footer */
-@media screen and (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .footer-column {
-    margin: 15px 0;
-  }
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

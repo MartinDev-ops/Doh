@@ -10,8 +10,10 @@
 /* Make the body take full height */
 html, body {
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto; /* allow vertical scrolling */
+  font-family: Arial, sans-serif;
 }
 
 /* Header */
@@ -144,15 +146,7 @@ main {
   opacity: 0.8;
 }
 
-/* Footer */
-footer {
-  background-color: #f1f1f1;
-  color: #333;
-  text-align: center;
-  padding: 15px 0;
-  /* sticky footer */
-  margin-top: auto; 
-}
+
 .message-container {
   padding: 12px 20px;
   margin: 10px auto;

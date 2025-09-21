@@ -2,103 +2,111 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
 // Supabase credentials
 const SUPABASE_URL = "https://runubjjjseujpnkkuveu.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnViampqc2V1anBua2t1dmV1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1ODM3NDYwNCwiZXhwIjoyMDczOTUwNjA0fQ.N0sHg1kqrL7F7h0R8Vw3Q2FulHVU9S3-JY4utWfHC94";
-
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnViampqc2V1anBua2t1dmV1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1ODM3NDYwNCwiZXhwIjoyMDczOTUwNjA0fQ.N0sHg1kqrL7F7h0R8Vw3Q2FulHVU9S3-JY4utWfHC94"; // Replace with valid anon key
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Mapping of document tables to storage buckets
+// Mapping of tables to buckets
 const bucketMap = {
-  news_documents: "news_pdf",
+  news_documents: "news_pdfs",
   paipa: "paipa",
   policies: "policies",
   annual_report: "annual_report",
   annual_performance_plan: "annual_performance_plan",
   budget_speech: "budget_speech",
   department_strategic_plan: "department_strategic_plan",
-  application_forms_for_private_health_facilities: "application_forms_for_private_health_facilities"
+  application_forms_for_private_health_facilities: "application_forms_for_private_health_facilities",
+  awarded_tenders: "awarded_tenders",
+  received_tenders: "received_tenders",
+  archived_tenders: "archived_tenders",
+  advertised_tenders: "advertised_tenders"
 };
 
 // -------------------
 // Show message helper
 // -------------------
 function showMessage(message, type = "success", duration = 3000) {
-  const container = document.getElementById("messageContainer");
+  let container = document.getElementById("messageContainer");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "messageContainer";
+    container.className = "message-container hidden";
+    document.body.appendChild(container);
+  }
   container.textContent = message;
   container.className = `message-container message-${type}`;
   container.classList.remove("hidden");
-
-  setTimeout(() => {
-    container.classList.add("hidden");
-  }, duration);
+  setTimeout(() => container.classList.add("hidden"), duration);
 }
 
 // -------------------
-// Upload News
+// File type check
 // -------------------
-const newsForm = document.getElementById("newsForm");
-newsForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const title = document.getElementById("newsTitle").value.trim();
-  const fileInput = document.getElementById("newsFile");
+function isValidFile(file) {
+  const allowed = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  ];
+  return allowed.includes(file.type);
+}
+
+// -------------------
+// Upload Handler
+// -------------------
+async function handleUpload(formId, titleId, fileId, categorySelectId) {
+  const title = document.getElementById(titleId).value.trim();
+  const fileInput = document.getElementById(fileId);
+  const categorySelect = categorySelectId ? document.getElementById(categorySelectId) : null;
+  const tableName = categorySelect ? categorySelect.value : formId === "newsForm" ? "news_documents" : null;
+
+  if (!tableName) return showMessage("Please select a category", "error");
   if (!fileInput.files.length) return showMessage("Please select a file", "error");
 
   const file = fileInput.files[0];
-  const bucket = bucketMap.news_documents;
 
+  if (!isValidFile(file)) return showMessage("Only PDF or DOC/DOCX files are allowed", "error");
+
+  const bucket = bucketMap[tableName];
+
+  // Upload file to Supabase Storage using title as filename
   const { error: uploadError } = await supabase.storage
     .from(bucket)
-    .upload(file.name, file, { cacheControl: "3600", upsert: true });
-
+    .upload(title, file, { cacheControl: "3600", upsert: true });
   if (uploadError) return showMessage("Upload failed: " + uploadError.message, "error");
 
-  const { error: dbError } = await supabase
-    .from("news_documents")
-    .insert([{ title, file_name: file.name }]);
-
+  // Insert record in table (title only)
+  const { error: dbError } = await supabase.from(tableName).insert([{ title }]);
   if (dbError) return showMessage("Database insert failed: " + dbError.message, "error");
 
-  showMessage("News uploaded successfully!", "success");
-  newsForm.reset();
-  showDocuments("news_documents", "newsList");
-});
+  showMessage(`"${title}" uploaded successfully!`, "success");
+  document.getElementById(formId).reset();
+
+  const listId = formId === "newsForm" ? "newsList" : formId === "docsForm" ? "docsList" : "tendersList";
+  showDocuments(tableName, listId);
+}
 
 // -------------------
-// Upload Documents
+// Form Event Listeners
 // -------------------
-const docsForm = document.getElementById("docsForm");
-docsForm.addEventListener("submit", async (e) => {
+document.getElementById("newsForm").addEventListener("submit", e => {
   e.preventDefault();
-  const title = document.getElementById("docTitle").value.trim();
-  const fileInput = document.getElementById("docFile");
-  const category = document.getElementById("categorySelect").value;
+  handleUpload("newsForm", "newsTitle", "newsFile");
+});
 
-  if (!category) return showMessage("Please select a category", "error");
-  if (!fileInput.files.length) return showMessage("Please select a file", "error");
+document.getElementById("docsForm").addEventListener("submit", e => {
+  e.preventDefault();
+  handleUpload("docsForm", "docTitle", "docFile", "categorySelect");
+});
 
-  const file = fileInput.files[0];
-  const bucket = bucketMap[category];
-
-  const { error: uploadError } = await supabase.storage
-    .from(bucket)
-    .upload(file.name, file, { cacheControl: "3600", upsert: true });
-
-  if (uploadError) return showMessage("Upload failed: " + uploadError.message, "error");
-
-  const { error: dbError } = await supabase
-    .from(category)
-    .insert([{ title, file_name: file.name }]);
-
-  if (dbError) return showMessage("Database insert failed: " + dbError.message, "error");
-
-  showMessage("Document uploaded successfully!", "success");
-  docsForm.reset();
-  showDocuments(category, "docsList");
+document.getElementById("tendersForm").addEventListener("submit", e => {
+  e.preventDefault();
+  handleUpload("tendersForm", "tenderTitle", "tenderFile", "tenderCategorySelect");
 });
 
 // -------------------
-// Show/Hide Stored Documents (Toggle)
+// Show/Hide Stored Items
 // -------------------
-document.querySelectorAll(".show-btn").forEach((btn) => {
+document.querySelectorAll(".show-btn").forEach(btn => {
   btn.addEventListener("click", async () => {
     const targetListId = btn.getAttribute("data-target");
     const listDiv = document.getElementById(targetListId);
@@ -111,9 +119,14 @@ document.querySelectorAll(".show-btn").forEach((btn) => {
 
     let tableName;
     if (targetListId === "newsList") tableName = "news_documents";
-    else {
+    else if (targetListId === "docsList") {
       const category = document.getElementById("categorySelect").value;
       if (!category) return showMessage("Please select a category first", "error");
+      tableName = category;
+    }
+    else if (targetListId === "tendersList") {
+      const category = document.getElementById("tenderCategorySelect").value;
+      if (!category) return showMessage("Please select a tender type first", "error");
       tableName = category;
     }
 
@@ -122,7 +135,7 @@ document.querySelectorAll(".show-btn").forEach((btn) => {
 });
 
 // -------------------
-// Fetch and Display Documents
+// Fetch & Display Items
 // -------------------
 async function showDocuments(tableName, listId) {
   const { data, error } = await supabase.from(tableName).select("*");
@@ -131,7 +144,7 @@ async function showDocuments(tableName, listId) {
   listDiv.classList.remove("hidden");
 
   if (error) {
-    listDiv.innerHTML = `<p class="empty">Error fetching documents: ${error.message}</p>`;
+    listDiv.innerHTML = `<p class="empty">Error fetching items: ${error.message}</p>`;
     return;
   }
 
@@ -140,7 +153,7 @@ async function showDocuments(tableName, listId) {
     return;
   }
 
-  data.forEach((doc) => {
+  data.forEach(doc => {
     const item = document.createElement("div");
     item.className = "document-item";
 
@@ -152,9 +165,7 @@ async function showDocuments(tableName, listId) {
     viewBtn.textContent = "View";
     viewBtn.addEventListener("click", async () => {
       const bucket = bucketMap[tableName];
-      const { data: fileData, error: fileError } = await supabase.storage
-        .from(bucket)
-        .getPublicUrl(doc.file_name);
+      const { data: fileData, error: fileError } = supabase.storage.from(bucket).getPublicUrl(doc.title);
       if (fileError) return showMessage("Cannot open file: " + fileError.message, "error");
       window.open(fileData.publicUrl, "_blank");
     });
@@ -163,21 +174,16 @@ async function showDocuments(tableName, listId) {
     deleteBtn.className = "delete-btn";
     deleteBtn.textContent = "Delete";
     deleteBtn.addEventListener("click", async () => {
-      if (!confirm(`Delete document "${doc.title}"?`)) return;
+      if (!confirm(`Delete "${doc.title}"?`)) return;
 
       const bucket = bucketMap[tableName];
-      const { error: storageError } = await supabase.storage
-        .from(bucket)
-        .remove([doc.file_name]);
-      if (storageError) return showMessage("Failed to delete file: " + storageError.message, "error");
+      const { error: sErr } = await supabase.storage.from(bucket).remove([doc.title]);
+      if (sErr) return showMessage("Failed to delete file: " + sErr.message, "error");
 
-      const { error: dbError } = await supabase
-        .from(tableName)
-        .delete()
-        .eq("id", doc.id);
-      if (dbError) return showMessage("Failed to delete record: " + dbError.message, "error");
+      const { error: dErr } = await supabase.from(tableName).delete().eq("title", doc.title);
+      if (dErr) return showMessage("Failed to delete record: " + dErr.message, "error");
 
-      showMessage("Document deleted successfully!", "success");
+      showMessage(`"${doc.title}" deleted successfully!`, "success");
       showDocuments(tableName, listId);
     });
 

@@ -4,7 +4,7 @@ const SUPABASE_URL = "https://runubjjjseujpnkkuveu.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnViampqc2V1anBua2t1dmV1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1ODM3NDYwNCwiZXhwIjoyMDczOTUwNjA0fQ.N0sHg1kqrL7F7h0R8Vw3Q2FulHVU9S3-JY4utWfHC94";
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-async function loadPolicies() {
+async function loadStrategicPlans() {
   const container = document.getElementById("news-container");
   const noNewsMsg = document.getElementById("no-news");
   const spinner = document.getElementById("loading");
@@ -14,9 +14,8 @@ async function loadPolicies() {
   container.innerHTML = "";
 
   try {
-    // ✅ Table name: policies
     const { data, error } = await supabase
-      .from("policies")
+      .from("department_strategic_plan") // ✅ table name
       .select("*")
       .order("created_at", { ascending: false });
 
@@ -25,7 +24,7 @@ async function loadPolicies() {
     if (error) throw error;
     if (!data || data.length === 0) {
       noNewsMsg.style.display = "block";
-      noNewsMsg.textContent = "No policies available.";
+      noNewsMsg.textContent = "No strategic plans available.";
       return;
     }
 
@@ -36,12 +35,12 @@ async function loadPolicies() {
 
       card.onclick = async () => {
         try {
-          const filename = doc.title; // Use exact filename in storage
+          const filename = doc.title;
 
-          // ✅ Bucket name: policies
+          // ✅ bucket name: department_strategic_plan
           const { data: signedData, error: signedError } = await supabase.storage
-            .from("policies")
-            .createSignedUrl(filename, 60); // URL valid for 60 sec
+            .from("department_strategic_plan")
+            .createSignedUrl(filename, 60); // 60 sec validity
 
           if (signedError) throw signedError;
 
@@ -58,10 +57,10 @@ async function loadPolicies() {
 
   } catch (err) {
     spinner.style.display = "none";
-    console.error("Error fetching policies:", err);
+    console.error("Error fetching strategic plans:", err);
     noNewsMsg.style.display = "block";
-    noNewsMsg.textContent = "Failed to load policies.";
+    noNewsMsg.textContent = "Failed to load strategic plans.";
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadPolicies);
+document.addEventListener("DOMContentLoaded", loadStrategicPlans);

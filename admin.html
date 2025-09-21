@@ -28,9 +28,7 @@
         <button type="submit">Upload News</button>
       </form>
       <button class="show-btn" data-target="newsList">Show Current News</button>
-      <div id="newsList" class="stored-list hidden">
-        <p class="empty">No documents</p>
-      </div>
+      <div id="newsList" class="stored-list hidden"></div>
     </section>
 
     <!-- Documents Section -->
@@ -53,14 +51,29 @@
         <button type="submit">Upload Document</button>
       </form>
       <button class="show-btn" data-target="docsList">Show Current Documents</button>
-      <div id="docsList" class="stored-list hidden">
-        <p class="empty">No documents</p>
-      </div>
+      <div id="docsList" class="stored-list hidden"></div>
+    </section>
+
+    <!-- Tenders Section -->
+    <section class="bucket">
+      <h2>Tenders</h2>
+      <form id="tendersForm">
+        <input type="text" id="tenderTitle" placeholder="Enter tender title" required />
+        <input type="file" id="tenderFile" required />
+        <label for="tenderCategorySelect">Select Category:</label>
+        <select id="tenderCategorySelect" required>
+          <option value="">--Choose a category--</option>
+          <option value="awarded_tenders">Awarded Tenders</option>
+          <option value="received_tenders">Received Tenders</option>
+          <option value="archived_tenders">Archived Tenders</option>
+          <option value="advertised_tenders">Advertised Tenders</option>
+        </select>
+        <button type="submit">Upload Tender</button>
+      </form>
+      <button class="show-btn" data-target="tendersList">Show Current Tenders</button>
+      <div id="tendersList" class="stored-list hidden"></div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Department of Health - Limpopo</p>
-  </footer>
 </body>
 </html>
