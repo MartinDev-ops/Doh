@@ -174,3 +174,8 @@ main {
 .hidden {
   display: none;
 }
+/* Disabled button state */
+.bucket button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -2,7 +2,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
 // Supabase credentials
 const SUPABASE_URL = "https://runubjjjseujpnkkuveu.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnViampqc2V1anBua2t1dmV1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1ODM3NDYwNCwiZXhwIjoyMDczOTUwNjA0fQ.N0sHg1kqrL7F7h0R8Vw3Q2FulHVU9S3-JY4utWfHC94"; // Replace with valid anon key
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1bnViampqc2V1anBua2t1dmV1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1ODM3NDYwNCwiZXhwIjoyMDczOTUwNjA0fQ.N0sHg1kqrL7F7h0R8Vw3Q2FulHVU9S3-JY4utWfHC94"; 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Mapping of tables to buckets
@@ -54,6 +54,7 @@ function isValidFile(file) {
 // Upload Handler
 // -------------------
 async function handleUpload(formId, titleId, fileId, categorySelectId) {
+  const form = document.getElementById(formId);
   const title = document.getElementById(titleId).value.trim();
   const fileInput = document.getElementById(fileId);
   const categorySelect = categorySelectId ? document.getElementById(categorySelectId) : null;
@@ -63,26 +64,37 @@ async function handleUpload(formId, titleId, fileId, categorySelectId) {
   if (!fileInput.files.length) return showMessage("Please select a file", "error");
 
   const file = fileInput.files[0];
-
   if (!isValidFile(file)) return showMessage("Only PDF or DOC/DOCX files are allowed", "error");
 
   const bucket = bucketMap[tableName];
 
-  // Upload file to Supabase Storage using title as filename
-  const { error: uploadError } = await supabase.storage
-    .from(bucket)
-    .upload(title, file, { cacheControl: "3600", upsert: true });
-  if (uploadError) return showMessage("Upload failed: " + uploadError.message, "error");
+  const submitBtn = form.querySelector("button[type='submit']");
+  submitBtn.disabled = true;
+  showMessage("Uploading document...", "info", 10000);
 
-  // Insert record in table (title only)
-  const { error: dbError } = await supabase.from(tableName).insert([{ title }]);
-  if (dbError) return showMessage("Database insert failed: " + dbError.message, "error");
+  try {
+    const { error: uploadError } = await supabase.storage
+      .from(bucket)
+      .upload(title, file, { cacheControl: "3600", upsert: true });
+    if (uploadError) throw uploadError;
 
-  showMessage(`"${title}" uploaded successfully!`, "success");
-  document.getElementById(formId).reset();
+    const { error: dbError } = await supabase.from(tableName).insert([{ title }]);
+    if (dbError) throw dbError;
 
-  const listId = formId === "newsForm" ? "newsList" : formId === "docsForm" ? "docsList" : "tendersList";
-  showDocuments(tableName, listId);
+    showMessage(`"${title}" uploaded successfully!`, "success");
+    form.reset();
+
+    const listId =
+      formId === "newsForm" ? "newsList" :
+      formId === "docsForm" ? "docsList" :
+      "tendersList";
+    showDocuments(tableName, listId);
+
+  } catch (err) {
+    showMessage("Upload failed: " + err.message, "error");
+  } finally {
+    submitBtn.disabled = false;
+  }
 }
 
 // -------------------
@@ -111,7 +123,6 @@ document.querySelectorAll(".show-btn").forEach(btn => {
     const targetListId = btn.getAttribute("data-target");
     const listDiv = document.getElementById(targetListId);
 
-    // Toggle visibility
     if (!listDiv.classList.contains("hidden")) {
       listDiv.classList.add("hidden");
       return;
