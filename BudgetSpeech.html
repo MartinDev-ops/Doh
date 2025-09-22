@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>News</title>
+  <title>Budget Speech</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="news.css">
   <script type="module" defer src="budget.js"></script>
 </head>
 <body>
+  <!-- Header -->
   <div id="primary_header">
     <img id="logo" src="images/limpop-province.png" alt="Limpopo Province Logo">
   </div>
@@ -17,6 +18,8 @@
     <h1>Department of Health</h1>
   </div>
 
+  
+  <!-- Navigation -->
   <div id="nav">
     <div id="navbar">
       <a class="active" href="index.html">Home</a>
@@ -34,8 +37,17 @@
     </div>
   </div>
 
+  <nav class="breadcrumb">
+    <a href="index.html"><i class="fa fa-home"></i> Home</a>
+    <span> / </span>
+    <a href="Documents.html" class="current">Documents</a>
+    <span> / </span>
+    <a href="BudgetSpeech.html" class="current"> Budget Speech</a>
+   </nav>
+
+  <!-- Main Content -->
   <div id="main-content">
-    <h2 style="text-align:center; margin-bottom:20px;">Budget Speech</h2>
+    <h2>Budget Speech</h2>
 
     <!-- Loading Spinner -->
     <div id="loading" class="spinner"></div>
@@ -44,12 +56,12 @@
     <div id="news-container"></div>
 
     <!-- No News Message -->
-    <p id="no-news" style="text-align:center; padding:20px; display:none;">
+    <p id="no-news">
       No budget news found.
     </p>
   </div>
 
-  <!-- ✅ Footer -->
+  <!-- Footer -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-column">
@@ -80,7 +92,7 @@
       <div class="footer-column">
         <h4>General enquiries</h4>
         <p><strong>Contact number:</strong><br>+27 15 293 6000</p>
-        <p><strong>Hotline:</strong><br> 0800 91 91 91</p> 
+        <p><strong>Hotline:</strong><br> 0800 91 91 91</p>
         <p><strong>Email address:</strong><br>Lppd.cpu@gmail.com</p>
         <p><strong>Address:</strong><br>18 College Street<br>Fidel Castro Ruz House<br>Polokwane, South Africa</p>
       </div>

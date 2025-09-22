@@ -368,3 +368,53 @@ h1 {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* Breadcrumb Navigation */
+.breadcrumb {
+  margin: 15px 20px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+}
+
+.breadcrumb a {
+  color: #007bff;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb span {
+  color: #555;
+  margin: 0 5px;
+}
+
+.breadcrumb .current {
+  font-weight: bold;
+  color: #333;
+  cursor: default;
+  text-decoration: none;
+}
+
+
+/* Breadcrumb */
+.Breadcrumb {
+  font-size: 14px;
+  margin: 15px 20px;
+  padding: 8px 12px;
+  background: #f9f9f9;
+  border-radius: 5px;
+}
+.Breadcrumb a {
+  color: #0077cc;
+  text-decoration: none;
+}
+.Breadcrumb a:hover {
+  text-decoration: underline;
+}
+.Breadcrumb span {
+  color: #555;
+  font-weight: bold;
+}

@@ -415,3 +415,32 @@ h3{
     margin: 15px 0;
   }
 }
+
+ /* Breadcrumb Navigation */
+.breadcrumb {
+  margin: 15px 20px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+}
+
+.breadcrumb a {
+  color: #007bff;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb span {
+  color: #555;
+  margin: 0 5px;
+}
+
+.breadcrumb .current {
+  font-weight: bold;
+  color: #333;
+  cursor: default;
+  text-decoration: none;
+}

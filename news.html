@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="news.css">
   <script type="module" defer src="news.js"></script>
-  
 </head>
 <body>
   <div id="primary_header">
@@ -34,6 +33,13 @@
       </a>
     </div>
   </div>
+
+  <!-- ✅ Breadcrumb -->
+  <nav class="breadcrumb">
+    <a href="index.html"><i class="fa fa-home"></i> Home</a>
+    <span> / </span>
+    <a href="news.html" class="current">News</a>
+  </nav>
 
   <div id="main-content">
     <h2 style="text-align:center; margin-bottom:20px;">Latest News</h2>
@@ -109,17 +115,14 @@
   </footer>
 
   <script>
-
-      function toggleNavbar() {
-              var x = document.getElementById("navbar");
-            if (x.className === "") {
-                 x.className = "responsive";
-             } else {
-                x.className = "";
-             }
+    function toggleNavbar() {
+      var x = document.getElementById("navbar");
+      if (x.className === "") {
+        x.className = "responsive";
+      } else {
+        x.className = "";
       }
-  
+    }
   </script>
-
 </body>
 </html>
