@@ -31,7 +31,7 @@
         <a href="HealthFacilities.html">Health Facilities</a> 
         <a href="tendors.html">Tenders</a>
         <a href="contact.html">Contact us</a> 
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <a href="javascript:void(0);" class="icon" onclick="toggleNavbar()">
          <i class="fa fa-bars"></i></a>
                                  
       </div>                          
@@ -40,25 +40,31 @@
   <div id="main-content">
     <div id="vision">
         <h2>Vision</h2>
+        <br>
         <p>A long and healthy life for people in Limpopo</p>
     </div>
     <div id="Mission">
         <h2>Mission</h2>
+        <br>
         <p>The Department is committed to provide quality health care service that is accessible, comprehensive, integrated, sustainable and affordable.</p>
     </div>
     <div id="Core">
         <h2>Core Values</h2>
-        <p>The Department adheres to the following values and ethics that uphold the constitution of the Republic of South Africa trough:
-            We commit ourselves to serve the community with honesty and integrity
+        <br>
+        <p>The Department adheres to the following values and ethics that uphold the constitution of the Republic of South Africa through:</p>
+          <br>
+          <ul>
+            <li>We commit ourselves to serve the community with honesty and integrity </li>
+            <li>Fairness and equity will be adhered to at all times</li>
+            <li>Every person will be treated with respect and dignity</li>
+            <li>We commit ourselves to render services effectively, efficiently and economically</li>
+            <li>We will adhere to professional ethics</li>
+            <li>Teamwork and partnerships will be promoted at all times</li>
+            <li>All our services will be transparent</li>
+            <li>We will encourage innovation and quality in service delivery</li>
+            <li>We will uphold the Constitution of the Republic of South Africa</li>
+          </ul>
 
-Fairness and equity will be adhered to at all times
-Every person will be treated with respect and dignity
-We commit ourselves to render services effectively, efficiently and economically
-We will adhere to professional ethics
-Teamwork and partnerships will be promoted at all times
-All our services will be transparent
-We will encourage innovation and quality in service delivery
-We will uphold the Constitution of the Republic of South Africa</p>
     </div>
     
 
@@ -122,6 +128,19 @@ We will uphold the Constitution of the Republic of South Africa</p>
       <p>SITA Copyright © 2025</p>
     </div>
   </footer>
+
+  <script>
+
+      function toggleNavbar() {
+              var x = document.getElementById("navbar");
+            if (x.className === "") {
+                 x.className = "responsive";
+             } else {
+                x.className = "";
+             }
+      }
+  
+  </script>
 </body>
 
 </html>

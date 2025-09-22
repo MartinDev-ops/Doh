@@ -1,3 +1,5 @@
+
+
 import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
 const SUPABASE_URL = "https://runubjjjseujpnkkuveu.supabase.co";
@@ -65,3 +67,5 @@ async function loadNews() {
 }
 
 document.addEventListener("DOMContentLoaded", loadNews);
+
+

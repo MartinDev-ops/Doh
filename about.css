@@ -1,3 +1,136 @@
+@media screen and (max-width: 500px) {
+  #primary_header {
+    height: auto;
+    padding: 16px 6px;
+  }
+
+  #logo {
+    width: 90vw;
+    max-width: 260px;
+    height: auto;
+  }
+
+    #secondary_header {
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  #secondary_header h1 {
+    font-size: 7vw;
+    margin: 0;
+    padding: 0 4vw;
+  }
+  
+
+    h1 {
+    font-size: 7vw;
+    padding: 0 4vw;
+    margin: 0;
+  }
+
+  #secondary_header h1 {
+        font-size: 1.8rem;
+      }
+      
+  #navbar {
+    padding: 0 1vw;
+    font-size: 4vw;
+    background: #fff !important;
+    width: 100%;
+    box-sizing: border-box;
+    /* update */
+    flex-direction: column;
+        
+  }
+
+  #navbar a {
+    float: none;
+    display: block;
+    text-align: left;
+    padding: 10px 6px;
+    font-size: 4vw;
+    border-bottom: 1px solid #e6e6e6;
+   
+  }
+
+  #navbar .icon {
+    display: block;
+    float: right;
+    font-size: 6vw;
+    padding: 10px 6px;
+    cursor: pointer; 
+  }
+
+  /*update   */
+    #navbar.responsive {
+        display: flex;
+        background-color: #fff 
+      }
+      
+      #navbar a:not(:first-child) {
+        display: none;
+      }
+
+     #navbar a.icon {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 14px 16px;
+      }
+      
+      #navbar.responsive a {
+        display: block;
+        text-align: left;
+      }
+      
+      #navbar a.icon {
+        display: block;
+      } 
+
+      #main-content {
+        flex-direction: column;
+        padding: 10px;
+        gap: 15px;
+      }
+
+      #vision,
+  #Mission,
+  #Core {
+    width: 100%;
+    padding: 10px 6px;
+    margin: 8px 0;
+    margin-left: 16px;
+    margin-right: 4px;
+    font-size: 4vw;
+    border-left: 4px solid rgb(1, 176, 1);
+    background-color: #f7faf7;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(25,96,32,0.06);
+    text-align: left;
+    word-break: break-word;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  #vision h2,
+  #Mission h2,
+  #Core h2 {
+ font-size: 1rem;
+  }
+
+  #vision p,
+  #Mission p,
+  #Core p {
+ font-size:0.85rem;
+  }
+
+
+
+}
+
+
+      
 /* Reset */
 * {
   margin: 0;
@@ -131,14 +264,20 @@ h1 {
   padding: 50px 20px;
   height:fit-content;
 }
-
+h2{
+   text-align: center;
+}
 #vision{
   width: 100%;
   height: fit-content;
  padding: 10px;
   border-left: 5px solid  rgb(1, 176, 1);
   margin: 10px;
+  margin-left: 0px;
+  margin-right: 10px;
   background-color: rgb(231, 237, 232);
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
 
 }
 
@@ -148,7 +287,11 @@ h1 {
  padding: 10px;
   border-left: 5px solid  rgb(1, 176, 1);
   margin: 10px;
+  margin-left: 0px;
+  margin-right: 10px;
   background-color: rgb(231, 237, 231);
+  text-align: justify;
+  font-family: "Times New Roman", Times, serif;
 
 }
 
@@ -157,8 +300,13 @@ h1 {
   height: fit-content;
  padding: 10px;
   border-left: 5px solid  rgb(1, 176, 1);
-  margin: 10px;
+  margin: 10px; 
+  margin-left: 0px;
+  margin-right: 10px;
   background-color: rgb(231, 237, 232);
+  list-style-position: inside;
+  text-align: left;
+  font-family: "Times New Roman", Times, serif;
 
 }
 
