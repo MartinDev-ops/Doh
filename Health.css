@@ -98,6 +98,12 @@
       #navbar a.icon {
         display: block;
       } 
+      #T {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 
 
 }

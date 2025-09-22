@@ -99,6 +99,16 @@
         display: block;
       } 
 
+      #table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  h5{
+    font-size: 1vw;
+  }
 
 }
 /* Reset */
@@ -291,9 +301,18 @@ h1 {
 }
 
 h3{
-  font-size: 20px;
+  font-size: 18px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+h5{
+  font-size: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
+
 
 .card img{
   width: 80px;
